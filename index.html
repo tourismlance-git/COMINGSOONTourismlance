@@ -24,7 +24,7 @@
       --fg:              hsl(210, 40%, 98%);
       --fg-muted:        hsl(215, 18%, 70%);
       --border:          hsl(219, 30%, 18%);
-      --destructive:     hsl(0, 72%, 55%);
+      --whatsapp:        #25d366;
 
       --gradient-hero:
         radial-gradient(ellipse at top left, hsl(204 100% 22% / 0.45), transparent 55%),
@@ -32,18 +32,16 @@
         linear-gradient(180deg, hsl(219 60% 6%), hsl(219 65% 4%));
 
       --gradient-primary:  linear-gradient(135deg, #2050c2, #1db8ff);
-      --gradient-brand:    linear-gradient(135deg, #1a3a9e, #5cd6ff);
       --gradient-text:     linear-gradient(135deg, #ffffff, hsl(204 80% 75%));
-      --gradient-silver:   linear-gradient(135deg, hsl(215 15% 75%), hsl(215 12% 50%));
       --gradient-card:     linear-gradient(145deg, hsl(219 40% 12% / 0.75), hsl(219 45% 8% / 0.55));
 
       --shadow-glow:     0 0 50px hsl(204 100% 50% / 0.4);
       --shadow-elegant:  0 25px 70px -25px hsl(220 80% 40% / 0.5);
       --shadow-card:     0 10px 40px hsl(219 60% 2% / 0.5);
+      --shadow-wa:       0 0 40px hsl(142 70% 45% / 0.45);
 
       --radius-card:    14px;
       --radius-btn:     12px;
-      --radius-badge:   9999px;
     }
 
     /* ============================================================
@@ -78,9 +76,7 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -93,33 +89,19 @@
     }
 
     /* ============================================================
-       ACCESSIBILITY — FOCUS & REDUCED MOTION
+       ACCESSIBILITY
        ============================================================ */
     :focus-visible {
       outline: 2px solid var(--primary);
       outline-offset: 2px;
     }
 
-    /* Disable all animations when user prefers reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
-    }
-
-    /* Visually hidden utility for screen-reader-only labels */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
     }
 
     /* ============================================================
@@ -221,23 +203,22 @@
       filter: blur(80px);
     }
 
-    /* --- Hero content container --- */
+    /* --- Hero content --- */
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 680px;
+      max-width: 760px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
     }
 
     /* --- Top badge --- */
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
       padding: 8px 16px;
       border: 1px solid rgba(29, 184, 255, 0.3);
       background: rgba(29, 184, 255, 0.08);
@@ -250,14 +231,29 @@
       animation: fade-in-up 0.6s ease-out both;
     }
 
-    /* --- Main headline --- */
-    .hero-headline {
+    /* --- COMING SOON — largest text on the page --- */
+    .coming-soon-title {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      font-size: clamp(3.5rem, 12vw, 7rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
       background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      animation: fade-in-up 0.6s 0.05s ease-out both;
+    }
+
+    /* --- Brand sub-headline --- */
+    .hero-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.25rem, 3.5vw, 2rem);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      background: var(--gradient-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -265,26 +261,77 @@
       animation: fade-in-up 0.6s 0.1s ease-out both;
     }
 
-    /* --- Sub-headline --- */
+    /* --- Sub description --- */
     .hero-sub {
       font-family: 'Inter', sans-serif;
       font-weight: 400;
       font-size: clamp(1rem, 2vw, 1.125rem);
       color: var(--fg-muted);
-      max-width: 520px;
+      max-width: 480px;
       line-height: 1.65;
-      animation: fade-in-up 0.6s 0.2s ease-out both;
+      animation: fade-in-up 0.6s 0.15s ease-out both;
     }
 
     /* ============================================================
-       COUNTDOWN TIMER
+       DUAL COUNTDOWN SECTION
        ============================================================ */
+    .countdowns-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fade-in-up 0.6s 0.25s ease-out both;
+    }
+
+    /* Individual launch block */
+    .launch-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .launch-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+
+    .launch-date {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      color: var(--primary);
+      opacity: 0.8;
+    }
+
+    /* Soft launch block accent */
+    .launch-block.soft .launch-label { color: var(--primary-glow); }
+    .launch-block.soft .launch-date  { color: var(--primary-glow); }
+
+    /* Public launch block accent */
+    .launch-block.public .launch-label { color: var(--primary); }
+    .launch-block.public .launch-date  { color: var(--primary); }
+
+    /* Divider between the two countdown blocks */
+    .countdown-divider {
+      width: 1px;
+      align-self: stretch;
+      background: rgba(255, 255, 255, 0.08);
+      margin: 8px 0;
+    }
+
+    /* Countdown row */
     .countdown {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 16px;
-      animation: fade-in-up 0.6s 0.3s ease-out both;
+      gap: 8px;
     }
 
     .countdown-box {
@@ -294,24 +341,26 @@
       -webkit-backdrop-filter: blur(24px);
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-card);
-      padding: 20px 24px;
-      min-width: 80px;
+      padding: 14px 16px;
+      min-width: 66px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .countdown-number {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: var(--primary);
       line-height: 1;
       display: block;
     }
 
-    /* Triggered by JS on each number change */
+    /* Soft launch numbers in glow cyan */
+    .launch-block.soft .countdown-number { color: var(--primary-glow); }
+
     .countdown-number.flip {
       animation: count-flip 200ms ease-out both;
     }
@@ -319,155 +368,77 @@
     .countdown-label {
       font-family: 'Inter', sans-serif;
       font-weight: 600;
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--fg-muted);
     }
 
-    /* The ":" separator between boxes; margin-bottom offsets the label
-       so the colon aligns visually with the number digits above. */
     .countdown-sep {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: var(--primary);
       line-height: 1;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
+
+    .launch-block.soft .countdown-sep { color: var(--primary-glow); }
 
     .countdown-ended {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: var(--primary);
     }
 
     /* ============================================================
-       EMAIL CAPTURE FORM
+       WHATSAPP BUTTON
        ============================================================ */
-    .email-form-wrapper {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      animation: fade-in-up 0.6s 0.4s ease-out both;
-    }
-
-    .email-form {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-      width: 100%;
-      max-width: 560px;
-    }
-
-    .email-input {
-      flex: 1;
-      background: hsl(219, 30%, 16%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-btn);
-      padding: 12px 20px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 15px;
-      color: var(--fg);
-      outline: none;
-      transition: border-color 200ms, box-shadow 200ms;
-      width: 100%;
-      max-width: 320px;
-    }
-
-    .email-input::placeholder {
-      color: var(--fg-muted);
-    }
-
-    .email-input:focus {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-glow);
-    }
-
-    .email-btn {
-      background: var(--gradient-primary);
-      border: none;
-      border-radius: var(--radius-btn);
-      padding: 12px 28px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      color: white;
-      cursor: pointer;
-      transition: box-shadow 200ms, transform 200ms;
-      white-space: nowrap;
-    }
-
-    .email-btn:hover {
-      box-shadow: var(--shadow-glow);
-      transform: translateY(-1px);
-    }
-
-    .email-hint {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      color: var(--fg-muted);
-    }
-
-    .form-message {
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 14px;
-      min-height: 1.4em;
-    }
-
-    .form-message.success {
-      color: var(--primary);
-    }
-
-    .form-message.error {
-      color: var(--destructive);
-    }
-
-    /* ============================================================
-       TRUST BADGES
-       ============================================================ */
-    .trust-badges {
+    .wa-btn-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
-      animation: fade-in-up 0.6s 0.5s ease-out both;
+      animation: fade-in-up 0.6s 0.35s ease-out both;
     }
 
-    .trust-label {
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--whatsapp);
+      border: none;
+      border-radius: var(--radius-btn);
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: box-shadow 200ms, transform 200ms, filter 200ms;
+    }
+
+    .wa-btn:hover {
+      box-shadow: var(--shadow-wa);
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .wa-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+      flex-shrink: 0;
+    }
+
+    .wa-hint {
       font-family: 'Inter', sans-serif;
       font-weight: 400;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--fg-muted);
-    }
-
-    .trust-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 6px 10px;
-      list-style: none;
-    }
-
-    .trust-item {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--brand-silver);
-    }
-
-    .trust-sep {
-      color: var(--fg-muted);
-      font-size: 11px;
     }
 
     /* ============================================================
@@ -607,61 +578,43 @@
 
     /* Mobile — < 640px */
     @media (max-width: 639px) {
-      .hero-headline {
-        font-size: clamp(2rem, 8vw, 2.5rem);
+      .hero-content { gap: 20px; }
+
+      .coming-soon-title {
+        font-size: clamp(3rem, 14vw, 4rem);
       }
 
-      .hero-content {
-        gap: 24px;
+      .countdowns-wrapper {
+        flex-direction: column;
+        gap: 20px;
       }
+
+      .countdown-divider { display: none; }
 
       .countdown-box {
-        min-width: 60px;
-        padding: 14px 16px;
+        min-width: 56px;
+        padding: 12px 12px;
       }
 
-      .countdown-number {
-        font-size: 2rem;
-      }
+      .countdown-number { font-size: 1.6rem; }
+      .countdown-sep    { font-size: 1.2rem; margin-bottom: 14px; }
 
-      .countdown-sep {
-        font-size: 1.5rem;
-        margin-bottom: 16px;
-      }
-
-      .email-form {
-        flex-direction: column;
-      }
-
-      .email-input {
-        max-width: 100%;
-      }
-
-      .email-btn {
-        width: 100%;
+      .wa-btn {
+        font-size: 14px;
+        padding: 13px 24px;
       }
     }
 
     /* Tablet — 640px to 1023px */
     @media (min-width: 640px) and (max-width: 1023px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* Desktop — > 1024px */
     @media (min-width: 1024px) {
-      .navbar {
-        padding: 0 48px;
-      }
-
-      .features {
-        padding: 80px 48px;
-      }
-
-      .features-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .navbar   { padding: 0 48px; }
+      .features { padding: 80px 48px; }
+      .features-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
@@ -673,15 +626,14 @@
        ============================================================ -->
   <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <a href="#" class="navbar-logo" aria-label="Tourismlance — halaman utama">Tourismlance</a>
-    <span class="navbar-badge" aria-label="Status: Coming Soon">Coming Soon</span>
+    <span class="navbar-badge">Coming Soon</span>
   </nav>
 
   <!-- ============================================================
        HERO SECTION
        ============================================================ -->
-  <section class="hero" aria-labelledby="hero-heading">
+  <section class="hero" aria-labelledby="coming-soon-title">
 
-    <!-- Decorative blobs — purely visual, hidden from assistive tech -->
     <div class="blob blob-1" aria-hidden="true"></div>
     <div class="blob blob-2" aria-hidden="true"></div>
     <div class="blob blob-3" aria-hidden="true"></div>
@@ -689,83 +641,98 @@
     <div class="hero-content">
 
       <!-- Top badge -->
-      <div class="hero-badge" role="status" aria-label="Status: Segera Hadir">
-        🚀 Segera Hadir &bull; Marketplace Pariwisata Indonesia
+      <div class="hero-badge" role="status">
+        🚀 Marketplace &amp; Akademi Pariwisata Indonesia
       </div>
 
-      <!-- Main headline -->
-      <h1 class="hero-headline" id="hero-heading">
-        Platform Talent<br>Pariwisata Indonesia
-      </h1>
+      <!-- COMING SOON — biggest text -->
+      <h1 class="coming-soon-title" id="coming-soon-title">COMING SOON</h1>
 
-      <!-- Sub-headline -->
+      <!-- Brand name / sub-headline -->
+      <p class="hero-headline">Platform Talent Pariwisata Indonesia</p>
+
+      <!-- Description -->
       <p class="hero-sub">
-        Menghubungkan talent pariwisata terverifikasi dengan peluang terbaik.
-        KYC + asosiasi resmi: HPI, ITLA, ASITA, ASPHIRASI, dan lebih banyak lagi.
+        Menghubungkan talent pariwisata terverifikasi dengan peluang terbaik di seluruh Indonesia.
       </p>
 
-      <!-- Countdown Timer -->
-      <div class="countdown" id="countdown" aria-live="polite" aria-label="Hitung mundur peluncuran">
-        <div class="countdown-box">
-          <span class="countdown-number" id="cd-days">--</span>
-          <span class="countdown-label">Hari</span>
+      <!-- Dual Countdown -->
+      <div class="countdowns-wrapper" aria-label="Hitung mundur peluncuran">
+
+        <!-- Soft Launch -->
+        <div class="launch-block soft">
+          <span class="launch-label">Soft Launch</span>
+          <span class="launch-date">07 Juli 2026</span>
+          <div class="countdown" id="countdown-soft" aria-live="polite">
+            <div class="countdown-box">
+              <span class="countdown-number" id="s-days">--</span>
+              <span class="countdown-label">Hari</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-box">
+              <span class="countdown-number" id="s-hours">--</span>
+              <span class="countdown-label">Jam</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-box">
+              <span class="countdown-number" id="s-minutes">--</span>
+              <span class="countdown-label">Menit</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-box">
+              <span class="countdown-number" id="s-seconds">--</span>
+              <span class="countdown-label">Detik</span>
+            </div>
+          </div>
         </div>
-        <span class="countdown-sep" aria-hidden="true">:</span>
-        <div class="countdown-box">
-          <span class="countdown-number" id="cd-hours">--</span>
-          <span class="countdown-label">Jam</span>
+
+        <div class="countdown-divider" aria-hidden="true"></div>
+
+        <!-- Public Launch -->
+        <div class="launch-block public">
+          <span class="launch-label">Public Launch</span>
+          <span class="launch-date">18 Agustus 2026</span>
+          <div class="countdown" id="countdown-public" aria-live="polite">
+            <div class="countdown-box">
+              <span class="countdown-number" id="p-days">--</span>
+              <span class="countdown-label">Hari</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-box">
+              <span class="countdown-number" id="p-hours">--</span>
+              <span class="countdown-label">Jam</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-box">
+              <span class="countdown-number" id="p-minutes">--</span>
+              <span class="countdown-label">Menit</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-box">
+              <span class="countdown-number" id="p-seconds">--</span>
+              <span class="countdown-label">Detik</span>
+            </div>
+          </div>
         </div>
-        <span class="countdown-sep" aria-hidden="true">:</span>
-        <div class="countdown-box">
-          <span class="countdown-number" id="cd-minutes">--</span>
-          <span class="countdown-label">Menit</span>
-        </div>
-        <span class="countdown-sep" aria-hidden="true">:</span>
-        <div class="countdown-box">
-          <span class="countdown-number" id="cd-seconds">--</span>
-          <span class="countdown-label">Detik</span>
-        </div>
+
       </div>
 
-      <!-- Email Capture Form -->
-      <div class="email-form-wrapper">
-        <form class="email-form" id="email-form" novalidate aria-label="Formulir pendaftaran email">
-          <label for="email-input" class="sr-only">Alamat email kamu</label>
-          <input
-            type="email"
-            id="email-input"
-            class="email-input"
-            placeholder="Masukkan email kamu..."
-            autocomplete="email"
-            aria-describedby="form-hint form-message"
-            required
-          >
-          <button type="submit" class="email-btn">Beritahu Saya</button>
-        </form>
-        <p class="email-hint" id="form-hint">
-          Tidak ada spam. Kami akan mengirim notifikasi saat platform siap.
-        </p>
-        <p class="form-message" id="form-message" role="alert" aria-live="polite"></p>
-      </div>
-
-      <!-- Trust Badges -->
-      <div class="trust-badges" aria-label="Asosiasi mitra resmi">
-        <p class="trust-label">Terverifikasi oleh:</p>
-        <ul class="trust-list" role="list">
-          <li class="trust-item">HPI</li>
-          <li class="trust-sep" aria-hidden="true">&bull;</li>
-          <li class="trust-item">ITLA</li>
-          <li class="trust-sep" aria-hidden="true">&bull;</li>
-          <li class="trust-item">ASITA</li>
-          <li class="trust-sep" aria-hidden="true">&bull;</li>
-          <li class="trust-item">ITMA</li>
-          <li class="trust-sep" aria-hidden="true">&bull;</li>
-          <li class="trust-item">ASPHIRASI</li>
-          <li class="trust-sep" aria-hidden="true">&bull;</li>
-          <li class="trust-item">ASTINDO</li>
-          <li class="trust-sep" aria-hidden="true">&bull;</li>
-          <li class="trust-item">ASPPI</li>
-        </ul>
+      <!-- WhatsApp Group Button -->
+      <div class="wa-btn-wrapper">
+        <a
+          href="https://chat.whatsapp.com/Bez1IyXJHDOBOBu5OKFyLp?s=sw&p=i&ilr=2"
+          class="wa-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Bergabung ke Grup WhatsApp Tourismlance"
+        >
+          <!-- WhatsApp icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          MASUK GROUP WHATSAPP
+        </a>
+        <p class="wa-hint">Bergabung &amp; dapatkan update pertama saat platform live.</p>
       </div>
 
     </div>
@@ -808,37 +775,19 @@
 
     <nav class="social-links" aria-label="Media sosial">
 
-      <!-- Instagram -->
-      <a
-        href="#"
-        class="social-btn"
-        aria-label="Ikuti Tourismlance di Instagram"
-        rel="noopener noreferrer"
-      >
+      <a href="#" class="social-btn" aria-label="Instagram Tourismlance" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
         </svg>
       </a>
 
-      <!-- Twitter / X -->
-      <a
-        href="#"
-        class="social-btn"
-        aria-label="Ikuti Tourismlance di Twitter/X"
-        rel="noopener noreferrer"
-      >
+      <a href="#" class="social-btn" aria-label="Twitter/X Tourismlance" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
       </a>
 
-      <!-- LinkedIn -->
-      <a
-        href="#"
-        class="social-btn"
-        aria-label="Ikuti Tourismlance di LinkedIn"
-        rel="noopener noreferrer"
-      >
+      <a href="#" class="social-btn" aria-label="LinkedIn Tourismlance" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
@@ -857,112 +806,66 @@
        1. NAVBAR SCROLL EFFECT
        ============================================================ */
     const navbar = document.getElementById('navbar');
-
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
     }, { passive: true });
 
     /* ============================================================
-       2. COUNTDOWN TIMER
-          - Target = 90 days from first page load
-          - Persisted in localStorage so refreshing keeps the same target
+       2. DUAL COUNTDOWN — fixed target dates (no localStorage)
+          Soft Launch  : 07 July 2026 00:00:00 local time
+          Public Launch: 18 August 2026 00:00:00 local time
        ============================================================ */
-    const STORAGE_KEY = 'tourismlance_launch_target';
+    const SOFT_TARGET   = new Date('2026-07-07T00:00:00').getTime();
+    const PUBLIC_TARGET = new Date('2026-08-18T00:00:00').getTime();
 
-    function getTargetDate() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = parseInt(stored, 10);
-        // Reuse stored target only if it is still in the future
-        if (!isNaN(parsed) && parsed > Date.now()) {
-          return parsed;
-        }
-      }
-      const target = Date.now() + (90 * 24 * 60 * 60 * 1000);
-      localStorage.setItem(STORAGE_KEY, target.toString());
-      return target;
-    }
+    function pad(n) { return String(n).padStart(2, '0'); }
 
-    const targetDate = getTargetDate();
-
-    const elDays    = document.getElementById('cd-days');
-    const elHours   = document.getElementById('cd-hours');
-    const elMinutes = document.getElementById('cd-minutes');
-    const elSeconds = document.getElementById('cd-seconds');
-
-    function pad(n) {
-      return String(n).padStart(2, '0');
-    }
-
-    // Update element text and trigger the count-flip animation only when value changes
-    function triggerFlip(el, newValue) {
-      if (el.textContent === newValue) return;
+    function triggerFlip(el, val) {
+      if (el.textContent === val) return;
       el.classList.remove('flip');
       void el.offsetWidth; // force reflow to restart animation
-      el.textContent = newValue;
+      el.textContent = val;
       el.classList.add('flip');
     }
 
-    function updateCountdown() {
-      const diff = targetDate - Date.now();
-
+    function updateBlock(target, ids, containerId) {
+      const diff = target - Date.now();
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML =
+        document.getElementById(containerId).innerHTML =
           '<span class="countdown-ended">Sudah Tiba! 🎉</span>';
-        clearInterval(countdownInterval);
-        return;
+        return false; // signal: done
       }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const days    = Math.floor(totalSeconds / 86400);
-      const hours   = Math.floor((totalSeconds % 86400) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      triggerFlip(elDays,    pad(days));
-      triggerFlip(elHours,   pad(hours));
-      triggerFlip(elMinutes, pad(minutes));
-      triggerFlip(elSeconds, pad(seconds));
+      const t = Math.floor(diff / 1000);
+      triggerFlip(document.getElementById(ids.d), pad(Math.floor(t / 86400)));
+      triggerFlip(document.getElementById(ids.h), pad(Math.floor((t % 86400) / 3600)));
+      triggerFlip(document.getElementById(ids.m), pad(Math.floor((t % 3600) / 60)));
+      triggerFlip(document.getElementById(ids.s), pad(t % 60));
+      return true;
     }
 
-    // Run immediately, then tick every second
-    updateCountdown();
-    const countdownInterval = setInterval(updateCountdown, 1000);
+    let softDone   = false;
+    let publicDone = false;
 
-    /* ============================================================
-       3. EMAIL FORM SUBMISSION
-       ============================================================ */
-    const form        = document.getElementById('email-form');
-    const emailInput  = document.getElementById('email-input');
-    const formMessage = document.getElementById('form-message');
-    const formHint    = document.getElementById('form-hint');
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    function tick() {
+      if (!softDone) {
+        softDone = !updateBlock(
+          SOFT_TARGET,
+          { d: 's-days', h: 's-hours', m: 's-minutes', s: 's-seconds' },
+          'countdown-soft'
+        );
+      }
+      if (!publicDone) {
+        publicDone = !updateBlock(
+          PUBLIC_TARGET,
+          { d: 'p-days', h: 'p-hours', m: 'p-minutes', s: 'p-seconds' },
+          'countdown-public'
+        );
+      }
+      if (softDone && publicDone) clearInterval(timer);
     }
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const email = emailInput.value.trim();
-
-      if (!isValidEmail(email)) {
-        formMessage.textContent = 'Format email tidak valid';
-        formMessage.className   = 'form-message error';
-        emailInput.focus();
-        return;
-      }
-
-      // Success — hide form, show confirmation
-      form.style.display     = 'none';
-      formHint.style.display = 'none';
-      formMessage.textContent = '✓ Terima kasih! Kami akan menghubungi kamu.';
-      formMessage.className   = 'form-message success';
-    });
+    tick();
+    const timer = setInterval(tick, 1000);
   </script>
 
 </body>
